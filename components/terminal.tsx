@@ -15,6 +15,7 @@ export function Terminal() {
   const [outputLines, setOutputLines] = useState<OutputLine[]>([])
   const [isInitializing, setIsInitializing] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -55,6 +56,9 @@ export function Terminal() {
 
   useEffect(() => {
     const initialize = async () => {
+      if (isInitialized) return
+      setIsInitialized(true)
+      
       if (!isMobile) {
         addLine(generateAsciiArt('NIKARU TERMINAL'))
       } else {
@@ -99,7 +103,7 @@ export function Terminal() {
       setIsInitializing(false)
     }
     initialize()
-  }, [isMobile])
+  }, [isMobile, isInitialized])
 
   return (
     <div className="min-h-screen bg-black p-2 sm:p-4 font-mono text-sm">
