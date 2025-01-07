@@ -1,148 +1,85 @@
-@keyframes scanline {
+:root {
+  --cyber-orange: #ff6b00;
+  --cyber-orange-glow: #ff6b0066;
+  --cyber-dark: #1a1a1a;
+}
+
+/* Terminal cyberpunk styling */
+.terminal {
+  background-color: var(--cyber-dark);
+  border: 2px solid var(--cyber-orange);
+  box-shadow: 0 0 10px var(--cyber-orange-glow);
+  font-family: 'Courier New', monospace;
+}
+
+.terminal-text {
+  color: var(--cyber-orange);
+  text-shadow: 0 0 5px var(--cyber-orange-glow);
+}
+
+/* Glitch effect for important text */
+.cyber-glitch {
+  animation: glitch 1s infinite;
+  position: relative;
+}
+
+@keyframes glitch {
   0% {
-    transform: translateY(-100%);
+    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
+  }
+  25% {
+    text-shadow: -2px 0 var(--cyber-orange), 2px 0 #0ff;
+  }
+  50% {
+    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
+  }
+  75% {
+    text-shadow: -2px 0 var(--cyber-orange), 2px 0 #0ff;
+  }
+  100% {
+    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
+  }
+}
+
+/* Scanning line effect */
+.terminal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cyber-orange);
+  animation: scanning 2s linear infinite;
+}
+
+@keyframes scanning {
+  0% {
+    transform: translateY(0);
   }
   100% {
     transform: translateY(100%);
   }
 }
 
-@keyframes flicker {
-  0% {
-    opacity: 0.9;
-  }
-  5% {
-    opacity: 0.8;
-  }
-  10% {
-    opacity: 0.9;
-  }
-  15% {
-    opacity: 0.85;
-  }
-  20% {
-    opacity: 0.9;
-  }
-  25% {
-    opacity: 0.8;
-  }
-  30% {
-    opacity: 0.9;
-  }
-  35% {
-    opacity: 0.85;
-  }
-  40% {
-    opacity: 0.9;
-  }
-  45% {
-    opacity: 0.85;
-  }
-  50% {
-    opacity: 0.9;
-  }
-  55% {
-    opacity: 0.85;
-  }
-  60% {
-    opacity: 0.9;
-  }
-  65% {
-    opacity: 0.8;
-  }
-  70% {
-    opacity: 0.9;
-  }
-  75% {
-    opacity: 0.85;
-  }
-  80% {
-    opacity: 0.9;
-  }
-  85% {
-    opacity: 0.8;
-  }
-  90% {
-    opacity: 0.9;
-  }
-  95% {
-    opacity: 0.85;
-  }
-  100% {
-    opacity: 0.9;
-  }
+/* Input line styling */
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--cyber-orange);
+  caret-color: var(--cyber-orange);
 }
 
-@keyframes glitch {
-  0% {
-    clip-path: inset(40% 0 61% 0);
-    transform: translate(-2px, 2px);
-  }
-  20% {
-    clip-path: inset(92% 0 1% 0);
-    transform: translate(1px, -3px);
-  }
-  40% {
-    clip-path: inset(43% 0 1% 0);
-    transform: translate(-1px, 3px);
-  }
-  60% {
-    clip-path: inset(25% 0 58% 0);
-    transform: translate(3px, 1px);
-  }
-  80% {
-    clip-path: inset(54% 0 7% 0);
-    transform: translate(-3px, -2px);
-  }
-  100% {
-    clip-path: inset(58% 0 43% 0);
-    transform: translate(2px, 2px);
-  }
+.terminal-input::before {
+  content: '>';
+  color: var(--cyber-orange);
+  margin-right: 8px;
 }
 
-.terminal-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.terminal-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.15) 0px,
-    rgba(0, 0, 0, 0.15) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  pointer-events: none;
-  animation: scanline 10s linear infinite;
-}
-
-.terminal-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.2) 100%
-  );
-  pointer-events: none;
-}
-
-.glitch-effect {
-  animation: glitch 2s steps(100) infinite;
-}
-
-.crt-flicker {
-  animation: flicker 0.3s infinite;
+/* Command output styling */
+.terminal-output {
+  padding: 4px;
+  border-left: 2px solid var(--cyber-orange);
+  margin: 4px 0;
 }
 
