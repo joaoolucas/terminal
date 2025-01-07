@@ -25,16 +25,26 @@ export function TerminalInput({ onCommand, prompt = "nikaruSystem: ~" }: Termina
     }
   }
 
+  const handleFocus = () => {
+    // Scroll to bottom on mobile when input is focused
+    window.scrollTo(0, document.body.scrollHeight)
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex items-center">
-      <span className="text-orange-500 mr-2">{prompt}</span>
+      <span className="text-orange-500 mr-2 text-xs sm:text-sm">{prompt}</span>
       <input
         ref={inputRef}
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="flex-1 bg-transparent text-orange-500 outline-none caret-orange-500"
+        onFocus={handleFocus}
+        className="flex-1 bg-transparent text-orange-500 outline-none caret-orange-500 text-xs sm:text-sm"
         autoFocus
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck="false"
       />
     </form>
   )

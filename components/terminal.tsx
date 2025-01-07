@@ -14,6 +14,16 @@ interface OutputLine {
 export function Terminal() {
   const [outputLines, setOutputLines] = useState<OutputLine[]>([])
   const [isInitializing, setIsInitializing] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const addLine = (content: string, typing = false) => {
     setOutputLines(prev => [...prev, { content, typing }])
@@ -45,7 +55,11 @@ export function Terminal() {
 
   useEffect(() => {
     const initialize = async () => {
-      addLine(generateAsciiArt('NIKARU TERMINAL'))
+      if (!isMobile) {
+        addLine(generateAsciiArt('NIKARU TERMINAL'))
+      } else {
+        addLine('NIKARU TERMINAL', true)
+      }
       await sleep(500)
       addLine('[SYNAPTECH DYNAMICS CORP.] [BUILD: 2.3.4513214] [ACCESS LEVEL: ROOT]')
       addLine(`[DOMAIN: nikaru.xyz]`)
@@ -85,20 +99,20 @@ export function Terminal() {
       setIsInitializing(false)
     }
     initialize()
-  }, [])
+  }, [isMobile])
 
   return (
-    <div className="min-h-screen bg-black p-4 font-mono text-sm">
-      <div className="terminal-container mx-auto max-w-4xl rounded-lg border border-orange-500 bg-black/90 p-4 shadow-[0_0_15px_rgba(249,115,22,0.5)] crt-flicker">
+    <div className="min-h-screen bg-black p-2 sm:p-4 font-mono text-sm">
+      <div className="terminal-container mx-auto max-w-4xl rounded-lg border border-orange-500 bg-black/90 p-2 sm:p-4 shadow-[0_0_15px_rgba(249,115,22,0.5)] crt-flicker">
         <div className="flex items-center justify-between mb-4">
           <div className="flex gap-2">
-            <div className="h-3 w-3 rounded-full bg-red-500" />
-            <div className="h-3 w-3 rounded-full bg-yellow-500" />
-            <div className="h-3 w-3 rounded-full bg-green-500" />
+            <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-red-500" />
+            <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-yellow-500" />
+            <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-green-500" />
           </div>
-          <div className="text-orange-500 text-xs glitch-effect">nikaruSystem: ~</div>
+          <div className="text-orange-500 text-xs sm:text-sm glitch-effect">nikaruSystem: ~</div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 text-xs sm:text-sm">
           {outputLines.map((line, i) => (
             <TerminalOutput
               key={i}

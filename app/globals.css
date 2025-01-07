@@ -8,12 +8,34 @@
   --cyber-dark: #1a1a1a;
 }
 
+/* Prevent text zoom on mobile */
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent pull-to-refresh on mobile */
+html {
+  overscroll-behavior-y: none;
+}
+
 body {
   font-family: 'Courier New', monospace;
   background: var(--cyber-dark);
   color: var(--cyber-orange);
   position: relative;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Optimize CRT effect for mobile */
+@media (max-width: 768px) {
+  .crt::before {
+    background-size: 100% 1px, 2px 100%;
+    animation: flicker 0.3s infinite;
+  }
 }
 
 /* CRT screen effect */
@@ -62,71 +84,41 @@ body {
   z-index: 1;
 }
 
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+  .crt::before,
+  .crt::after {
+    animation: none;
+  }
+  
+  .cyber-bg {
+    animation: none;
+  }
+}
+
 /* Flicker animation */
 @keyframes flicker {
-  0% {
-    opacity: 0.27861;
-  }
-  5% {
-    opacity: 0.34769;
-  }
-  10% {
-    opacity: 0.23604;
-  }
-  15% {
-    opacity: 0.90626;
-  }
-  20% {
-    opacity: 0.18128;
-  }
-  25% {
-    opacity: 0.83891;
-  }
-  30% {
-    opacity: 0.65583;
-  }
-  35% {
-    opacity: 0.67807;
-  }
-  40% {
-    opacity: 0.26559;
-  }
-  45% {
-    opacity: 0.84693;
-  }
-  50% {
-    opacity: 0.96019;
-  }
-  55% {
-    opacity: 0.08594;
-  }
-  60% {
-    opacity: 0.20313;
-  }
-  65% {
-    opacity: 0.71988;
-  }
-  70% {
-    opacity: 0.53455;
-  }
-  75% {
-    opacity: 0.37288;
-  }
-  80% {
-    opacity: 0.71428;
-  }
-  85% {
-    opacity: 0.70419;
-  }
-  90% {
-    opacity: 0.7003;
-  }
-  95% {
-    opacity: 0.36108;
-  }
-  100% {
-    opacity: 0.24387;
-  }
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
 }
 
 /* Text glow effect */
@@ -134,6 +126,14 @@ body {
   text-shadow: 0 0 10px var(--cyber-orange-glow),
                0 0 20px var(--cyber-orange-glow),
                0 0 30px var(--cyber-orange-glow);
+}
+
+/* Mobile optimized text glow */
+@media (max-width: 768px) {
+  .text-glow {
+    text-shadow: 0 0 5px var(--cyber-orange-glow),
+                 0 0 10px var(--cyber-orange-glow);
+  }
 }
 
 @layer utilities {
