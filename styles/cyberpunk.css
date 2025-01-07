@@ -2,46 +2,91 @@
   --cyber-orange: #ff6b00;
   --cyber-orange-glow: #ff6b0066;
   --cyber-dark: #1a1a1a;
+  --cyber-orange-bright: #ff8533;
+  --cyber-orange-dim: #cc5500;
 }
 
 /* Terminal cyberpunk styling */
 .terminal {
   background-color: var(--cyber-dark);
   border: 2px solid var(--cyber-orange);
-  box-shadow: 0 0 10px var(--cyber-orange-glow);
+  box-shadow: 0 0 20px var(--cyber-orange-glow);
   font-family: 'Courier New', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 65%,
+    rgba(255, 107, 0, 0.1) 75%,
+    transparent 85%
+  );
+  pointer-events: none;
+  animation: cyber-gradient 8s infinite;
 }
 
 .terminal-text {
   color: var(--cyber-orange);
-  text-shadow: 0 0 5px var(--cyber-orange-glow);
+  text-shadow: 0 0 8px var(--cyber-orange-glow);
+  position: relative;
 }
 
-/* Glitch effect for important text */
+/* Enhanced glitch effect */
 .cyber-glitch {
   animation: glitch 1s infinite;
   position: relative;
 }
 
-@keyframes glitch {
-  0% {
-    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
-  }
-  25% {
-    text-shadow: -2px 0 var(--cyber-orange), 2px 0 #0ff;
-  }
-  50% {
-    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
-  }
-  75% {
-    text-shadow: -2px 0 var(--cyber-orange), 2px 0 #0ff;
-  }
-  100% {
-    text-shadow: 2px 0 var(--cyber-orange), -2px 0 #0ff;
-  }
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Scanning line effect */
+.cyber-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--cyber-orange-bright);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.cyber-glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--cyber-orange-dim);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+  0%, 100% { transform: none; opacity: 1; }
+  7% { transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
+  10% { transform: none; opacity: 1; }
+  27% { transform: none; opacity: 1; }
+  30% { transform: skew(0.8deg, -0.1deg); opacity: 0.75; }
+  35% { transform: none; opacity: 1; }
+}
+
+@keyframes glitch-1 {
+  0% { clip-path: inset(80% 0 0 0); }
+  100% { clip-path: inset(0 0 80% 0); }
+}
+
+@keyframes glitch-2 {
+  0% { clip-path: inset(0 80% 0 0); }
+  100% { clip-path: inset(0 0 0 80%); }
+}
+
+/* Enhanced scanning line effect */
 .terminal::before {
   content: '';
   position: absolute;
@@ -50,36 +95,79 @@
   width: 100%;
   height: 2px;
   background: var(--cyber-orange);
+  box-shadow: 0 0 15px var(--cyber-orange-glow);
   animation: scanning 2s linear infinite;
+  opacity: 0.7;
 }
 
 @keyframes scanning {
   0% {
     transform: translateY(0);
   }
+  50% {
+    opacity: 0.5;
+  }
   100% {
     transform: translateY(100%);
   }
 }
 
-/* Input line styling */
+@keyframes cyber-gradient {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Enhanced input line styling */
 .terminal-input {
   background: transparent;
   border: none;
-  color: var(--cyber-orange);
+  color: var(--cyber-orange-bright);
   caret-color: var(--cyber-orange);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.terminal-input:focus {
+  outline: none;
+  text-shadow: 0 0 8px var(--cyber-orange-glow);
 }
 
 .terminal-input::before {
   content: '>';
   color: var(--cyber-orange);
   margin-right: 8px;
+  text-shadow: 0 0 8px var(--cyber-orange-glow);
 }
 
-/* Command output styling */
+/* Enhanced command output styling */
 .terminal-output {
   padding: 4px;
   border-left: 2px solid var(--cyber-orange);
   margin: 4px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-output::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 107, 0, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: cyber-scan 3s ease infinite;
+}
+
+@keyframes cyber-scan {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 

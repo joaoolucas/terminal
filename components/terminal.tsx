@@ -32,6 +32,9 @@ export function Terminal() {
       case 'twitter':
         addLine(commands.twitter, true)
         break
+      case 'ca':
+        addLine('soon', true)
+        break
       case 'clear':
         setOutputLines([])
         break
@@ -45,7 +48,7 @@ export function Terminal() {
       addLine(generateAsciiArt('NIKARU TERMINAL'))
       await sleep(500)
       addLine('[SYNAPTECH DYNAMICS CORP.] [BUILD: 2.3.4513214] [ACCESS LEVEL: ROOT]')
-      addLine(`[DOMAIN: harukiexe.xyz]`)
+      addLine(`[DOMAIN: nikaru.xyz]`)
       await sleep(500)
       addLine('===============================================================')
       await sleep(500)
@@ -72,6 +75,13 @@ export function Terminal() {
       await sleep(500)
       addLine('[WARNING]: ROOT PRIVILEGES GRANTED', true)
       await sleep(1000)
+      addLine('\nAvailable commands:', true)
+      addLine('  help     - Show all available commands', true)
+      addLine('  about    - About this terminal', true)
+      addLine('  twitter  - Twitter profile', true)
+      addLine('  ca       - Soon™', true)
+      addLine('  clear    - Clear terminal', true)
+      addLine('\nType a command and press Enter to execute.', true)
       setIsInitializing(false)
     }
     initialize()
