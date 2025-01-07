@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NIKARU TERMINAL',
     description: 'A cyberpunk-inspired terminal interface',
-    creator: '@exe_haruki',
+    creator: '@TerminalNikaru',
     images: ['/og-image.png'],
   },
   icons: {

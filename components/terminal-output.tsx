@@ -28,7 +28,7 @@ export function TerminalOutput({ content, typing = false, className = '' }: Term
   }, [content, typing])
 
   return (
-    <pre className={`text-orange-500 whitespace-pre-wrap ${className}`}>
+    <pre className={`text-orange-500 whitespace-pre-wrap text-glow ${className}`}>
       {displayedContent}
     </pre>
   )

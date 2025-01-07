@@ -13,7 +13,7 @@ export const generateAsciiArt = (text: string) => {
 export const commands = {
   help: 'Available commands: help, about, clear, twitter',
   about: 'NIKARU TERMINAL - A cyberpunk-inspired command line interface',
-  twitter: 'Twitter: @exe_haruki',
+  twitter: 'Twitter: @TerminalNikaru',
   clear: 'Clearing terminal...',
 };
 
